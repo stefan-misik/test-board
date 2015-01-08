@@ -1,0 +1,12 @@
+LCD:
+1x PWM,
+3x GPIO,
+
+KEYPAD:
+7x GPIO,
+
+OUT:
+2x GPIO,
+
+LED:
+nx PWM
