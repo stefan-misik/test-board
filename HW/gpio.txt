@@ -1,6 +1,6 @@
 LCD:
 1x PWM,
-3x GPIO,
+2x GPIO,
 
 KEYPAD:
 7x GPIO,
