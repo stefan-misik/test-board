@@ -16253,11 +16253,11 @@ Based on the following sources:
 <instance part="IC1" gate="D" x="200.66" y="60.96"/>
 <instance part="IC1" gate="E" x="200.66" y="73.66"/>
 <instance part="IC1" gate="F" x="200.66" y="86.36"/>
-<instance part="IC1" gate="P" x="27.94" y="144.78" smashed="yes">
-<attribute name="NAME" x="21.59" y="136.525" size="1.778" layer="95"/>
+<instance part="IC1" gate="P" x="236.22" y="106.68" smashed="yes">
+<attribute name="NAME" x="229.87" y="98.425" size="1.778" layer="95"/>
 </instance>
-<instance part="GND9" gate="1" x="25.4" y="134.62"/>
-<instance part="+3V2" gate="G$1" x="25.4" y="154.94"/>
+<instance part="GND9" gate="1" x="236.22" y="96.52"/>
+<instance part="+3V2" gate="G$1" x="236.22" y="116.84"/>
 <instance part="LCD" gate="1" x="241.3" y="78.74" rot="R180"/>
 <instance part="+3V3" gate="G$1" x="231.14" y="91.44"/>
 <instance part="GND10" gate="1" x="231.14" y="60.96"/>
@@ -16353,7 +16353,6 @@ Based on the following sources:
 <segment>
 <pinref part="IC1" gate="P" pin="VSS"/>
 <pinref part="GND9" gate="1" pin="GND"/>
-<wire x1="27.94" y1="137.16" x2="25.4" y2="137.16" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LCD" gate="1" pin="2"/>
@@ -16588,7 +16587,6 @@ Based on the following sources:
 <segment>
 <pinref part="IC1" gate="P" pin="VDD"/>
 <pinref part="+3V2" gate="G$1" pin="+3V3"/>
-<wire x1="27.94" y1="152.4" x2="25.4" y2="152.4" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="LCD" gate="1" pin="1"/>
