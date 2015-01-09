@@ -18634,6 +18634,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="D3" library="diode" deviceset="DIODE-" device="MINIMELF"/>
 <part name="P+11" library="supply1" deviceset="+12V" device=""/>
 <part name="P+12" library="supply1" deviceset="+12V" device=""/>
+<part name="D4" library="diode" deviceset="DIODE-" device="MINIMELF"/>
 </parts>
 <sheets>
 <sheet>
@@ -18653,7 +18654,9 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="Q1" gate="G$1" x="83.312" y="74.93" rot="R180"/>
 <instance part="C4" gate="G$1" x="80.01" y="66.294" rot="R180"/>
 <instance part="C5" gate="G$1" x="87.884" y="66.294" rot="R180"/>
-<instance part="P+3" gate="VCC" x="160.782" y="63.5"/>
+<instance part="P+3" gate="VCC" x="160.782" y="68.58" smashed="yes">
+<attribute name="VALUE" x="162.56" y="65.278" size="1.778" layer="96"/>
+</instance>
 <instance part="R1" gate="G$1" x="154.432" y="57.15"/>
 <instance part="R2" gate="G$1" x="96.012" y="69.85" rot="R180"/>
 <instance part="ICSP" gate="1" x="68.072" y="90.17"/>
@@ -18734,6 +18737,7 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="P+12" gate="1" x="48.26" y="121.92" smashed="yes">
 <attribute name="VALUE" x="50.8" y="119.38" size="1.778" layer="96"/>
 </instance>
+<instance part="D4" gate="G$1" x="149.86" y="63.5"/>
 </instances>
 <busses>
 </busses>
@@ -18921,7 +18925,11 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="R1" gate="G$1" pin="2"/>
 <pinref part="P+3" gate="VCC" pin="VCC"/>
 <wire x1="159.512" y1="57.15" x2="160.782" y2="57.15" width="0.1524" layer="91"/>
-<wire x1="160.782" y1="57.15" x2="160.782" y2="60.96" width="0.1524" layer="91"/>
+<wire x1="160.782" y1="57.15" x2="160.782" y2="63.5" width="0.1524" layer="91"/>
+<pinref part="D4" gate="G$1" pin="C"/>
+<wire x1="160.782" y1="63.5" x2="160.782" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="63.5" x2="160.782" y2="63.5" width="0.1524" layer="91"/>
+<junction x="160.782" y="63.5"/>
 </segment>
 <segment>
 <pinref part="P+7" gate="VCC" pin="VCC"/>
@@ -19020,13 +19028,17 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <segment>
 <pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="149.352" y1="57.15" x2="144.272" y2="57.15" width="0.1524" layer="91"/>
-<wire x1="144.272" y1="57.15" x2="144.272" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="144.272" y1="57.15" x2="144.272" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="U1" gate="A" pin="PC6"/>
+<wire x1="144.272" y1="63.5" x2="144.272" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="144.272" y1="66.04" x2="139.192" y2="66.04" width="0.1524" layer="91"/>
 <label x="143.764" y="58.674" size="1.778" layer="95" rot="R90"/>
 <pinref part="C8" gate="G$1" pin="2"/>
 <wire x1="144.272" y1="57.15" x2="144.272" y2="54.61" width="0.1524" layer="91"/>
 <junction x="144.272" y="57.15"/>
+<pinref part="D4" gate="G$1" pin="A"/>
+<wire x1="147.32" y1="63.5" x2="144.272" y2="63.5" width="0.1524" layer="91"/>
+<junction x="144.272" y="63.5"/>
 </segment>
 <segment>
 <pinref part="ICSP" gate="1" pin="5"/>
@@ -19242,18 +19254,6 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </net>
 <net name="LCD_SCE_5V" class="0">
 <segment>
-<pinref part="U1" gate="A" pin="PD2"/>
-<wire x1="139.192" y1="99.06" x2="160.782" y2="99.06" width="0.1524" layer="91"/>
-<label x="160.782" y="99.06" size="1.778" layer="95" xref="yes"/>
-</segment>
-<segment>
-<pinref part="IC1" gate="F" pin="I"/>
-<wire x1="190.5" y1="58.42" x2="187.96" y2="58.42" width="0.1524" layer="91"/>
-<label x="187.96" y="58.42" size="1.778" layer="95" rot="R180" xref="yes"/>
-</segment>
-</net>
-<net name="LCD_DC_5V" class="0">
-<segment>
 <pinref part="U1" gate="A" pin="PD4"/>
 <wire x1="139.192" y1="93.98" x2="160.782" y2="93.98" width="0.1524" layer="91"/>
 <label x="160.782" y="93.98" size="1.778" layer="95" xref="yes"/>
@@ -19262,6 +19262,18 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="IC1" gate="A" pin="I"/>
 <wire x1="190.5" y1="83.82" x2="187.96" y2="83.82" width="0.1524" layer="91"/>
 <label x="187.96" y="83.82" size="1.778" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="LCD_DC_5V" class="0">
+<segment>
+<pinref part="U1" gate="A" pin="PD2"/>
+<wire x1="139.192" y1="99.06" x2="160.782" y2="99.06" width="0.1524" layer="91"/>
+<label x="160.782" y="99.06" size="1.778" layer="95" xref="yes"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="F" pin="I"/>
+<wire x1="190.5" y1="58.42" x2="187.96" y2="58.42" width="0.1524" layer="91"/>
+<label x="187.96" y="58.42" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 </net>
 <net name="LCD_LED_5V" class="0">
