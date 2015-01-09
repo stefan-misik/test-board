@@ -341,11 +341,12 @@ UsedLibrary="C:/Program Files (x86)/EAGLE-6.5.0/lbr/xilinx-xc9.lbr"
 UsedLibrary="C:/Program Files (x86)/EAGLE-6.5.0/lbr/xilinx-xcv.lbr"
 UsedLibrary="C:/Program Files (x86)/EAGLE-6.5.0/lbr/zetex.lbr"
 UsedLibrary="C:/Program Files (x86)/EAGLE-6.5.0/lbr/zilog.lbr"
+UsedLibrary="D:/Work/ts/HW/Eagle/lbr/misc.lbr"
 UsedLibrary="D:/Work/ts/HW/Eagle/lbr/v-reg.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="26 287 625 686"
+Loc="682 215 1281 614"
 State=2
 Number=0
 
