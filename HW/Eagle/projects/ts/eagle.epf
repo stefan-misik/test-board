@@ -346,10 +346,10 @@ UsedLibrary="D:/Work/ts/HW/Eagle/lbr/v-reg.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="601 173 1200 572"
+Loc="225 164 824 563"
 State=2
 Number=0
 
 [Desktop]
-Screen="1366 768"
+Screen="1920 1848"
 Window="Win_1"
