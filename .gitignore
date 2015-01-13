@@ -30,6 +30,6 @@
 
 # Visual studio files
 *.sdf
+*.opensdf
 *.suo
-Release/
-Debug/
+
