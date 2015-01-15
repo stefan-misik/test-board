@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="wndDisplay.c">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="wndDisplay.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{d8cb8abb-93e8-487a-9a64-e5e3a6ecdb87}</UniqueIdentifier>
+      <Extensions>*.h</Extensions>
+    </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{d8a210ca-176b-4b2e-86b7-c9173f0be440}</UniqueIdentifier>
+      <Extensions>*.c</Extensions>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{c211b827-8226-4775-bdd3-fcacd1e1c765}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="graphTest.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
