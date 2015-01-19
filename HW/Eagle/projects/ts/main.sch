@@ -20244,7 +20244,7 @@ Source: www.kingbright.com</description>
 <part name="C3" library="rcl" deviceset="C-EU" device="C0805" value="100nF"/>
 <part name="P+2" library="supply1" deviceset="VCC" device=""/>
 <part name="GND2" library="supply1" deviceset="GND" device=""/>
-<part name="Q1" library="crystal" deviceset="CRYSTAL" device="HC49S"/>
+<part name="Q1" library="crystal" deviceset="CRYSTAL" device="HC49S" value="20 MHz"/>
 <part name="C4" library="rcl" deviceset="C-EU" device="C0805" value="15pF"/>
 <part name="C5" library="rcl" deviceset="C-EU" device="C0805" value="15pF"/>
 <part name="P+3" library="supply1" deviceset="VCC" device=""/>

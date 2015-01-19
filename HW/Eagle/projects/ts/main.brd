@@ -2294,7 +2294,7 @@ design rules under a new name.</description>
 <attribute name="NAME" x="53.52" y="22.52" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="55.04" y="20.48" size="1.27" layer="27" rot="R90"/>
 </element>
-<element name="Q1" library="crystal" package="HC49/S" value="" x="48.5" y="17" smashed="yes" rot="R90">
+<element name="Q1" library="crystal" package="HC49/S" value="20 MHz" x="48.5" y="17" smashed="yes" rot="R90">
 <attribute name="OC_NEWARK" value="unknown" x="48.5" y="17" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MPN" value="" x="48.5" y="17" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="MF" value="" x="48.5" y="17" size="1.778" layer="27" rot="R90" display="off"/>
