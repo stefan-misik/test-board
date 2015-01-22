@@ -32,6 +32,7 @@
 *.sdf
 *.opensdf
 *.suo
+*.pdb
 
 # Eagle
 *.b#*
