@@ -14,8 +14,13 @@ static BOOL UpdateBitmap(
 	SIZE dim;
 	HDC hdcMem, hdc;
 	HGDIOBJ original_pen, original_brush;
-	UINT col, row, ux, uy, uPw, uPh, uOx, uOy, uGx, uGy;
 	CHAR * data;
+	INT uRow, uCol;
+	INT uDispW, uDispH;
+	INT uOffX, uOffY;
+	INT uPixelW, uPixelH;
+	INT uDrawAreaW, uDrawAreaH;
+	INT uGridW, uGridH;
 
 	lpWd = (LPWNDDISPLAY)GetWindowLongPtr(hWnd, 0);
 	if (NULL == lpWd)
@@ -47,21 +52,6 @@ static BOOL UpdateBitmap(
 
 	DeleteDC(hdc);
 
-	/* Update img info */
-	if (lpWd->uBmpWidth != client.right)
-	{
-		lpWd->uBmpWidth = client.right - 10;
-		lpWd->uPixelWidth = (UINT)(((client.right - 10) / lpWd->display.size.ux) * 0.8);
-		lpWd->uLeftOffset = ((client.right - 10) % lpWd->display.size.ux) / 2 + 5;
-	}
-
-	if (lpWd->uBmpHeight != client.bottom)
-	{
-		lpWd->uBmpHeight = client.bottom - 10;
-		lpWd->uPixelHeight = (UINT)(((client.bottom - 10) / lpWd->display.size.uy) * 0.8);
-		lpWd->uTopOffset = ((client.bottom - 10) % lpWd->display.size.uy) / 2 + 5;
-	}
-
 
 
 	/* Draw to Bitmap */
@@ -70,53 +60,62 @@ static BOOL UpdateBitmap(
 	original_brush = SelectObject(hdcMem, lpWd->hbrBrushes[DISPLAY_BACKGROUND]);
 	original_pen = SelectObject(hdcMem, GetStockObject(BLACK_PEN));
 
-	/* Draw background */
+	/* Clear Background */
 	Rectangle(hdcMem, 0, 0, client.right, client.bottom);
+
+	
+
+	/* Calculate sizes */
+	uDrawAreaW = client.right - 10;
+	uDrawAreaH = client.bottom - 10;
+
+	uDispW = lpWd->display.size.ux;
+	uDispH = lpWd->display.size.uy;
+
+	uGridW = uDrawAreaW / uDispW;
+	uGridH = uDrawAreaH / uDispH;
+
+	uPixelW = ((UINT)(uGridW * 0.8) + 1);
+	uPixelH = ((UINT)(uGridH * 0.8) + 1);
+
+	uOffX = (((uDrawAreaW % uDispW) / 2) + 4 );
+	uOffY = (((uDrawAreaH % uDispH) / 2) + 4 );
+
 
 	/* Remove Pen */
 	SelectObject(hdcMem, GetStockObject(NULL_PEN));
-	
 
-	ux = lpWd->display.size.ux;
-	uy = lpWd->display.size.uy;
 
-	uPw = lpWd->uPixelWidth;
-	uPh = lpWd->uPixelHeight;
+	/* Draw inactive */
+	SelectObject(hdcMem, lpWd->hbrBrushes[DISPLAY_INACTIVE]);
 
-	uOx = lpWd->uLeftOffset;
-	uOy = lpWd->uTopOffset;
-
-	uGx = client.right / ux;
-	uGy = client.bottom / uy;
-
-	/* Add borders */
-	client.right -= 10;
-	client.bottom -= 10;
-
-	/* Draw Inactive pixels */
-	data = (CHAR *)(lpWd->display.data);
-	
-
-	for (row = 0; row < uy; row++)
+	for (uRow = 0; uRow < uDispH; uRow++)
 	{
-		UINT uPy;
-		uPy = uGy * row + uOy;
-
-		for (col = 0; col < ux; col++)
+		UINT uPy = uOffY + (uGridH * uRow);
+		for (uCol = 0; uCol < uDispW; uCol++)
 		{
-			UINT uPx;
-			uPx = uGx * col + uOx;
-			if (((data[((row >> 3) * ux) + col] >> (row & (~7)) & 1)) == 0)
-			{
-				SelectObject(hdcMem, lpWd->hbrBrushes[DISPLAY_INACTIVE]);				
-			}
-			else
-			{
-				SelectObject(hdcMem, lpWd->hbrBrushes[DISPLAY_ACTIVE]);
-			}
-			Rectangle(hdcMem, uPx - 1, uPy - 1, uPx + uPw + 1, uPy + uPh + 1);
+			UINT uPx = uOffX + (uGridW * uCol);
+			Rectangle(hdcMem, uPx - 1, uPy - 1, uPx + uPixelW, uPy + uPixelH);
 		}
 	}	
+
+	/* Draw active */
+	SelectObject(hdcMem, lpWd->hbrBrushes[DISPLAY_ACTIVE]);
+
+	data = lpWd->display.data;
+
+	for (uRow = 0; uRow < uDispH; uRow++)
+	{
+		UINT uPy = uOffY + (uGridH * uRow);
+		for (uCol = 0; uCol < uDispW; uCol++)
+		{
+			if (((data[((uRow >> 3) * uDispW) + uCol] >> (uRow & 7) & 1)) != 0)
+			{
+				UINT uPx = uOffX + (uGridW * uCol);
+				Rectangle(hdcMem, uPx-1, uPy-1, uPx + uPixelW, uPy + uPixelH);
+			}
+		}
+	}
 
 	SelectObject(hdcMem, original_pen);
 	SelectObject(hdcMem, original_brush);
@@ -159,6 +158,11 @@ static LRESULT CALLBACK WindowProc(
 		}
 
 		WndDisplaySetSize(hwnd, 84, 48);
+
+		for (i = 0; i < 504; i++)
+		{
+			((char *)lpWd->display.data)[i] = (i & 255);
+		}
 
 		WndDisplaySetColor(hwnd, DISPLAY_BACKGROUND, RGB(232, 252, 163));
 		WndDisplaySetColor(hwnd, DISPLAY_INACTIVE, RGB(198, 229, 132));

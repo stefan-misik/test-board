@@ -28,13 +28,7 @@ typedef struct tagWNDDISPLAY
 {
 	DISPLAY display;
 	HBRUSH hbrBrushes[3];	
-	HBITMAP hBitmap;
-	UINT    uPixelWidth;
-	UINT	uPixelHeight;
-	UINT	uLeftOffset;
-	UINT	uTopOffset;
-	UINT	uBmpWidth;
-	UINT	uBmpHeight;
+	HBITMAP hBitmap;	
 } WNDDISPLAY, *LPWNDDISPLAY;
 
 ATOM WndDisplayRegister(
