@@ -7,6 +7,9 @@
     <ClCompile Include="wndDisplay.c">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\libgraph\libgraph.c">
+      <Filter>libgraph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="wndDisplay.h">
@@ -14,6 +17,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libgraph\libgraph.h">
+      <Filter>libgraph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +33,9 @@
     </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{c211b827-8226-4775-bdd3-fcacd1e1c765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libgraph">
+      <UniqueIdentifier>{7e881ab6-6c76-47d8-b22b-359450c9dd40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

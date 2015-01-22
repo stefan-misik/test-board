@@ -76,10 +76,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\libgraph\libgraph.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="wndDisplay.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\libgraph\libgraph.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="wndDisplay.h" />
   </ItemGroup>
