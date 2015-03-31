@@ -6,7 +6,7 @@
 #define LCD_SET_D()		PORTD |= (1 << PORTD2)
 
 /**
- * \brief Set lcd mode to CONTROL
+ * \brief Set lcd mode to COMMAND
  */
 #define LCD_SET_C()		PORTD &= ~(1 << PORTD2);
 
