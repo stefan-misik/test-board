@@ -8,8 +8,16 @@ void outputs_init(
 	void
 )
 {
+	unsigned char i;
+	
 	DDRD |= ((1 << DDD3) | (1 << DDD6));
 	DDRB |= (1 << DDB0);
+	
+	/* Turn off all outputs */
+	for(i = OUTPUT_LED; i <= OUTPUT_2; i ++)
+	{
+		outputs_set(i, 0);
+	}
 }
 
 /******************************************************************************/
@@ -21,15 +29,15 @@ void outputs_set(
 	switch(out)
 	{
 		case OUTPUT_LED:
-		out ? (PORTD |= (1 << PORTD6)) : (PORTD &= ~(1 << PORTD6));
+		state ? (PORTD &= ~(1 << PORTD6)) : (PORTD |= (1 << PORTD6));
 		break;
 		
 		case OUTPUT_1:
-		out ? (PORTB |= (1 << PORTB0)) : (PORTB &= ~(1 << PORTB0));
+		state ? (PORTB |= (1 << PORTB0)) : (PORTB &= ~(1 << PORTB0));
 		break;
 		
 		case OUTPUT_2:
-		out ? (PORTD |= (1 << PORTD3)) : (PORTD &= ~(1 << PORTD3));
+		state ? (PORTD |= (1 << PORTD3)) : (PORTD &= ~(1 << PORTD3));
 		break;
 	}
 }
