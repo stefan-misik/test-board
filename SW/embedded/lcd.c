@@ -1,3 +1,10 @@
+/**
+ * \file    lcd.c
+ * \author  Stefan Misik
+ * \brief   Driver for the LCD
+ *     
+ */
+
 #define F_CPU 20000000UL
 #include <util/delay.h>
 #include <avr/io.h>
@@ -41,7 +48,7 @@ unsigned char lcd_buffer[504];
 
 #endif
 
-FILE lcd_stdout = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
+FILE lcd_sout = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 
 /**
  * \brief ASCII characters
@@ -287,7 +294,7 @@ void lcd_set_bl(
 
 /******************************************************************************/
 void lcd_put(
-	unsigned char * data,
+	const unsigned char * data,
 	unsigned int length
 )
 {	
@@ -375,13 +382,14 @@ int lcd_putchar(
 	/* Set data mode */
 	lcd_set_d();
 	
+	/* Prepare character identification */
 	c -= 0x20;
 	if(c < 0 || c >= sizeof(lcd_ascii) / 5)
 	{
 		c = 0;
 	}
 	
-		
+	/* Prepare character to be drawn */
 	last_b = 0;
 	for(i = 0; i < 5; i ++)
 	{
@@ -399,9 +407,10 @@ int lcd_putchar(
 		tmp[i++] = last_b;
 	}
 	
-	tmp[i] = 0;	
+	tmp[i++] = 0;	
 	
-	lcd_put(tmp, 6 + lcd_fond_bold);
+	/* Draw character */
+	lcd_put(tmp, i);
 	
 	
 	/* Release serial interface */
