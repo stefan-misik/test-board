@@ -10,6 +10,8 @@ typedef enum
 	LCD_VOP			/* Vop - contrast */
 } lcd_ex_e;
 
+extern FILE lcd_stdout;
+
 void lcd_init(
 	void
 );
@@ -48,5 +50,13 @@ void lcd_set_point(
 );
 
 #endif
+
+int lcd_putchar(
+	int c
+);
+
+void lcd_bold(
+	char b
+);
 
 #endif /* LCD_H_ */
