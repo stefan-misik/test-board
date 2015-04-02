@@ -38,3 +38,6 @@
 *.b#*
 *.s#*
 
+# Atmel studio
+*.lss
+*.atsuo
