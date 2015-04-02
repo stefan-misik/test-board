@@ -14,6 +14,7 @@
 
 #include "lcd.h"
 #include "outputs.h"
+#include "temperature.h"
 
  
  
@@ -21,6 +22,7 @@ int main(void)
 {
 	outputs_init();
 	lcd_init();
+	temperature_init();
 	
 	stdout = &lcd_sout;
 	
