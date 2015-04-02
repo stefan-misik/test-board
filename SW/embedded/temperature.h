@@ -9,6 +9,11 @@
 #define TEMPERATURE_H_
 
 /**
+ * \brief Error code
+ */
+#define TEMPERATURE_ERR	0x8000
+
+/**
  * \brief Initialization of temperature module
  */
 void temperature_init(
@@ -18,7 +23,8 @@ void temperature_init(
 /**
  * \brief Read current temperature value
  *
- * \return Temperature value in dg. C * 2
+ * \return	Temperature value in dg. C * 2, 
+			TEMPERATURE_ERR on communication error
  */
 int temperature_get(
 	void

@@ -20,6 +20,8 @@
  
 int main(void)
 {
+	int temp;
+	char pos = 0, i;
 	outputs_init();
 	lcd_init();
 	temperature_init();
@@ -27,19 +29,35 @@ int main(void)
 	stdout = &lcd_sout;
 	
 	lcd_set_pos(0, 0);
-	lcd_bold(0);
-	printf("abcABC,./*-+");
+	lcd_bold(1);
+	printf(" Temp Meter");
 	
-	lcd_set_pos(0, 1);
-	lcd_bold(10);
-	printf("abcABC,./*-+");
+	
 	
 	_delay_ms(2000);
 	lcd_draw_buffer();	
-	lcd_set_bl(0);
+	lcd_set_bl(1);
 	
 	while(1)
 	{
+		lcd_set_pos(0, 1);
+		lcd_bold(0);
+		temp = temperature_get();
+		printf("Temp: %i.%i 'C",  temp >> 1, (temp & 0x0001) * 5);
 		
+		
+		for(i = 16; i < 48; i++)
+		{
+			lcd_set_point(pos, i, 0);
+		}
+		lcd_set_point(pos ++, 90 - temp, 1);
+		if(pos == 84)
+		{
+			pos = 0;
+		}
+		
+		lcd_draw_buffer();	
+		
+		_delay_ms(1000);
 	}	
 }
