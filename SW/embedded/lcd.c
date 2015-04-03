@@ -207,8 +207,6 @@ void lcd_init(
 	/* Enable SPI, Master, set clock rate fck/16 */
 	SPCR = ( (1 << SPE) | (1 << MSTR) | (1 << SPR0) );
 	
-	/* Enable backglight */
-	lcd_set_bl(1);
 	
 	/* Reset serial interface */
 	lcd_set_sce(1);
@@ -274,21 +272,6 @@ void lcd_set_ex(
 		
 		/* Release serial interface */
 		lcd_set_sce(1);
-	}
-}
-
-/******************************************************************************/
-void lcd_set_bl(
-	char bl
-)
-{
-	if(bl)
-	{
-		PORTD |= (1 << PORTD5);
-	}
-	else
-	{
-		PORTD &= ~(1 << PORTD5);
 	}
 }
 

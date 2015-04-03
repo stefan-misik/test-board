@@ -32,11 +32,11 @@ int main(void)
 	lcd_bold(1);
 	printf(" Temp Meter");
 	
-	
+	outputs_set(OUTPUT_BL, 255);
 	
 	_delay_ms(2000);
 	lcd_draw_buffer();	
-	lcd_set_bl(1);
+	outputs_set(OUTPUT_BL, 70);
 	
 	while(1)
 	{
@@ -56,8 +56,10 @@ int main(void)
 			pos = 0;
 		}
 		
+		outputs_set(OUTPUT_LED, ((char)(temp)) << 4);
+		
 		lcd_draw_buffer();	
 		
-		_delay_ms(1000);
+		_delay_ms(500);
 	}	
 }

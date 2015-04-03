@@ -47,15 +47,6 @@ void lcd_set_ex(
 );
 
 /**
- * \brief Set status of the backlight
- *
- * \param[in] bl backlight status
- */
-void lcd_set_bl(
-	char bl
-);
-
-/**
  * \brief Set cursor position
  *
  * \param[in] col,row	Coordinates of the new position

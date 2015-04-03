@@ -1,3 +1,10 @@
+/**
+ * \file    outputs.h
+ * \author  Stefan Misik
+ * \brief   Driver for the outputs
+ *     
+ */
+
 #include "outputs.h"
 #include <avr/io.h>
 
@@ -9,9 +16,29 @@ void outputs_init(
 )
 {
 	unsigned char i;
+	unsigned char tmp;
 	
-	DDRD |= ((1 << DDD3) | (1 << DDD6));
+	/* Set output direction on pins */
+	DDRD |= ((1 << DDD3) | (1 << DDD5) | (1 << DDD6));
 	DDRB |= (1 << DDB0);
+	
+	/* Disable timer 0 interrupts */
+	TIMSK0 &= ~((1 << OCIE0B) | (1 << OCIE0A) | (1 << TOIE0));
+	
+	/* LED = OC0A, BL = OC0B */
+	/* Configure OC0A to non-inverting mode, OC0B to inverting mode */
+	tmp = TCCR0A;
+	tmp |= ((1 << COM0A1) | (1 << COM0B1) | (1 << COM0B0));
+	tmp &= ~((1 << COM0A0));
+	/* Configure mode 3 = Fast PWM */
+	tmp |= ((1 << WGM01) | (1 << WGM00));
+	TCCR0A = tmp;
+	tmp = TCCR0B;
+	tmp &= ~((1 << FOC0A) | (1 << FOC0B) | (1 << WGM02));
+	/* Select clock source */
+	tmp &= ~((1 << CS02) | (1 << CS01) | (1 << CS00));
+	tmp |= ((1 << CS02) | (0 << CS01) | (0 << CS00)); /* clkio / 256 */
+	TCCR0B = tmp;
 	
 	/* Turn off all outputs */
 	for(i = OUTPUT_LED; i <= OUTPUT_2; i ++)
@@ -23,27 +50,31 @@ void outputs_init(
 /******************************************************************************/
 void outputs_set(
 	outputs_e out,
-	char state
+	unsigned char value
 )
 {
 	switch(out)
 	{
 		case OUTPUT_LED:
-		state ? (PORTD &= ~(1 << PORTD6)) : (PORTD |= (1 << PORTD6));
+		OCR0A = (255 - value);
+		break;
+		
+		case OUTPUT_BL:
+		OCR0B = (255 - value);
 		break;
 		
 		case OUTPUT_1:
-		state ? (PORTB |= (1 << PORTB0)) : (PORTB &= ~(1 << PORTB0));
+		value ? (PORTB |= (1 << PORTB0)) : (PORTB &= ~(1 << PORTB0));
 		break;
 		
 		case OUTPUT_2:
-		state ? (PORTD |= (1 << PORTD3)) : (PORTD &= ~(1 << PORTD3));
+		value ? (PORTD |= (1 << PORTD3)) : (PORTD &= ~(1 << PORTD3));
 		break;
 	}
 }
 
 /******************************************************************************/
-char outputs_get(
+unsigned char outputs_get(
 	outputs_e out
 )
 {
@@ -51,7 +82,11 @@ char outputs_get(
 	switch(out)
 	{
 		case OUTPUT_LED:
-		ret = ((PORTD >> PORTD6) & 0x01);
+		ret = (255 - OCR0A);
+		break;
+		
+		case OUTPUT_BL:
+		ret = (255 - OCR0B);
 		break;
 		
 		case OUTPUT_1:
