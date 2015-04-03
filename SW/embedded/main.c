@@ -12,11 +12,30 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 #include "lcd.h"
 #include "outputs.h"
 #include "temperature.h"
 
- 
+
+char fix_to_decimal(
+	char in
+)
+{
+	char out = 0;
+	char cur = 5;
+	for(; in != 0; in <<= 1)
+	{
+		out *= 10;
+		if(0x80 & in)
+		{
+			out += cur;
+		}
+		cur *= 5;		
+	}
+	
+	return out;
+}
  
 int main(void)
 {
@@ -51,7 +70,7 @@ int main(void)
 		lcd_set_pos(0, 1);
 		lcd_bold(0);
 		temp = temperature_get();
-		printf("Temp: %i.%i 'C",  temp >> 1, (temp & 0x0001) * 5);
+		printf("Temp: %i.%i'C ",  temp >> 2, fix_to_decimal((temp & 0x0003) << 6));
 		
 		if(temp > t_max)
 		{
@@ -63,10 +82,10 @@ int main(void)
 			t_min = temp;
 		}
 		
-		if(120 == i)
+		if(10 == i)
 		{		
-			t_max = 90 - t_max;
-			t_min = 90 - t_min;
+			t_max = 140 - t_max;
+			t_min = 140 - t_min;
 			
 			for(i = 1; i < 84; i ++)
 			{

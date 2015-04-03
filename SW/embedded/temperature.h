@@ -23,7 +23,7 @@ void temperature_init(
 /**
  * \brief Read current temperature value
  *
- * \return	Temperature value in dg. C * 2, 
+ * \return	Temperature value in dg. C * 4, 
 			TEMPERATURE_ERR on communication error
  */
 int temperature_get(

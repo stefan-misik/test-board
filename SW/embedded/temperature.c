@@ -96,12 +96,12 @@ int temperature_get(
 	tmp &= ~((1 << TWEA));
 	TWCR = tmp;
 	temp <<= 8;
-	temp >>= 7;
+	temp >>= 6;
 	temperature_wait();
 	tmp = TWDR;
 		
 	
-	temp |= (tmp >> 7);
+	temp |= (tmp >> 6);
 	
 	
 	/* Transmit stop */
