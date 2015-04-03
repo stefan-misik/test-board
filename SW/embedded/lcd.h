@@ -97,6 +97,19 @@ void lcd_set_point(
 	char state
 );
 
+
+/**
+ * \brief Gets the status of the pixel on the LCD
+ *
+ * \param[in] x,i Coordinates of pixel in pixels
+ *
+ * \return	State of the selected pixel
+ */
+char lcd_get_point(
+	unsigned char x,
+	unsigned char y
+);
+
 #endif
 
 /**

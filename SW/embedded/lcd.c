@@ -350,6 +350,23 @@ void lcd_set_point(
 	}	
 }
 
+/******************************************************************************/
+char lcd_get_point(
+	unsigned char x,
+	unsigned char y
+)
+{
+	char point = 0;
+	
+	if(x < 84 && y < 48)
+	{		
+		point = (0 != (lcd_buffer[lcd_make_pos(x, (y >> 3))] 
+			& (1 << (y & 0x07))));		
+	}
+	
+	return point;
+}
+
 #endif
 
 /******************************************************************************/

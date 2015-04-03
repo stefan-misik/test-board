@@ -20,8 +20,13 @@
  
 int main(void)
 {
-	int temp;
-	char pos = 0, i;
+	int temp, t_max, t_min;
+	unsigned int i;
+	unsigned char j;
+	
+	t_max = 0x8000;
+	t_min = 0x7FFF;
+	
 	outputs_init();
 	lcd_init();
 	temperature_init();
@@ -34,9 +39,12 @@ int main(void)
 	
 	outputs_set(OUTPUT_BL, 255);
 	
-	_delay_ms(2000);
+	_delay_ms(1000);
 	lcd_draw_buffer();	
-	outputs_set(OUTPUT_BL, 70);
+	outputs_set(OUTPUT_BL, 0);
+	
+	
+	i = 0;
 	
 	while(1)
 	{
@@ -45,21 +53,46 @@ int main(void)
 		temp = temperature_get();
 		printf("Temp: %i.%i 'C",  temp >> 1, (temp & 0x0001) * 5);
 		
-		
-		for(i = 16; i < 48; i++)
+		if(temp > t_max)
 		{
-			lcd_set_point(pos, i, 0);
-		}
-		lcd_set_point(pos ++, 90 - temp, 1);
-		if(pos == 84)
-		{
-			pos = 0;
+			t_max = temp;
 		}
 		
-		outputs_set(OUTPUT_LED, ((char)(temp)) << 4);
+		if(temp < t_min)
+		{
+			t_min = temp;
+		}
+		
+		if(120 == i)
+		{		
+			t_max = 90 - t_max;
+			t_min = 90 - t_min;
+			
+			for(i = 1; i < 84; i ++)
+			{
+				for (j = 16; j < 48; j ++)
+				{
+					lcd_set_point(i-1, j,
+						lcd_get_point(i,j));
+				}
+			}
+			
+			for(j = 16; j < 48; j++)
+			{
+				lcd_set_point(83, j, (j >= t_max) && (j <= t_min));
+			}
+									
+								
+			i = 0;	
+			t_max = 0x8000;
+			t_min = 0x7FFF;		
+		}	
+		
+		
+		/*outputs_set(OUTPUT_LED, ((char)(temp)) << 4);*/
 		
 		lcd_draw_buffer();	
-		
-		_delay_ms(500);
+		i ++;
+		_delay_ms(1000);
 	}	
 }
