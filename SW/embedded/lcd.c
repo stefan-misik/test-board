@@ -312,8 +312,15 @@ void lcd_set_pos(
 	unsigned char row
 )
 {
-	col %= 84;
-	row %= 6;
+	if(col > 83)
+	{
+		col = 83;
+	}
+		
+	if(row > 5)
+	{
+		row = 5;
+	}	
 	
 	/* Set position on LCD */
 	lcd_set_pos_remote(col, row);	
