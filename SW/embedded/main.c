@@ -59,9 +59,15 @@ int main(void)
 	outputs_set(OUTPUT_BL, 255);
 	
 	_delay_ms(1000);
-	lcd_draw_buffer();	
-	outputs_set(OUTPUT_BL, 0);
+	lcd_draw_buffer();
 	
+	for(i = 255; i > 0; i--)
+	{
+		outputs_set(OUTPUT_BL, i);
+		_delay_ms(5);
+	}
+	
+	outputs_set(OUTPUT_BL, 0);
 	
 	i = 0;
 	
