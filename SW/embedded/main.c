@@ -16,6 +16,7 @@
 #include "lcd.h"
 #include "outputs.h"
 #include "temperature.h"
+#include "timer.h"
 
 
 char fix_to_decimal(
@@ -46,6 +47,7 @@ int main(void)
 	t_max = 0x8000;
 	t_min = 0x7FFF;
 	
+	timer_init();
 	outputs_init();
 	lcd_init();
 	temperature_init();
@@ -67,7 +69,7 @@ int main(void)
 		_delay_ms(5);
 	}
 	
-	outputs_set(OUTPUT_BL, 0);
+	outputs_set(OUTPUT_BL, 128);
 	
 	i = 0;
 	
@@ -75,9 +77,18 @@ int main(void)
 	{
 		lcd_set_pos(0, 1);
 		lcd_bold(0);
+		printf("%lu", timer_get_short());
+	}
+	
+	while(1)
+	{
 		temp = temperature_get();
+		lcd_set_pos(0, 1);
+		lcd_bold(0);
+		
 		printf("Temp: %i.%i'C ",  temp >> 2, fix_to_decimal((temp & 0x0003) << 6));
 		
+				
 		if(temp > t_max)
 		{
 			t_max = temp;

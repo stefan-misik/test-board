@@ -8,7 +8,7 @@ SED	   = sed
 
 MCU  ?= atmega328p
 PROJ = test-board
-SRC  = lcd.c outputs.c temperature.c main.c
+SRC  = timer.c lcd.c outputs.c temperature.c main.c
 
 
 CFLAGS  = -c -ggdb -Os -mmcu=$(MCU)

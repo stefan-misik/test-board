@@ -118,6 +118,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="common.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="lcd.c">
       <SubType>compile</SubType>
     </Compile>
@@ -137,6 +140,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="temperature.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
