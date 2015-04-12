@@ -73,12 +73,16 @@ int main(void)
 	
 	i = 0;
 	
-	while(1)
+	/*while(1)
 	{
+		long_time_t t;
 		lcd_set_pos(0, 1);
 		lcd_bold(0);
-		printf("%lu", timer_get_short());
-	}
+		
+		timer_get_long(&t);
+		
+		printf("%lu", (unsigned long)t);
+	}*/
 	
 	while(1)
 	{
