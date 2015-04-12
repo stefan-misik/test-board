@@ -4,23 +4,26 @@
 CC     = avr-gcc
 OBJCPY = avr-objcopy
 OBJDMP = avr-objdump
-SED	   = sed
+SIZE   = avr-size
 
 MCU  ?= atmega328p
 PROJ = test-board
 SRC  = timer.c lcd.c outputs.c temperature.c main.c
 
 
-CFLAGS  = -c -ggdb -Os -mmcu=$(MCU)
-LDFLAGS = -ggdb -Os -mmcu=$(MCU)
+CFLAGS		= -c -ggdb -Os -mmcu=$(MCU)
+LDFLAGS		= -ggdb -Os -mmcu=$(MCU)
+SIZEFLAGS	= -C --mcu=$(MCU)
 
 #############################################
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 
-.PHONY: all clean
+.PHONY: all clean stats
 
-all: $(PROJ).elf $(PROJ).hex $(PROJ).lss $(SRC)
+all: $(PROJ).elf $(PROJ).hex $(PROJ).lss $(SRC) stats
 
+stats: $(PROJ).elf
+	$(SIZE) $(SIZEFLAGS) $<
 
 $(PROJ).elf: $(OBJ)
 	$(CC) $(LDFLAGS) $(OBJ) -o $@
