@@ -20248,7 +20248,7 @@ Source: www.kingbright.com</description>
 <part name="C4" library="rcl" deviceset="C-EU" device="C0805" value="15pF"/>
 <part name="C5" library="rcl" deviceset="C-EU" device="C0805" value="15pF"/>
 <part name="P+3" library="supply1" deviceset="VCC" device=""/>
-<part name="R1" library="rcl" deviceset="R-EU_" device="R0805" value="10k"/>
+<part name="R1" library="rcl" deviceset="R-EU_" device="R0805" value="1M"/>
 <part name="R2" library="rcl" deviceset="R-EU_" device="R0805" value="1M"/>
 <part name="ICSP" library="con-lstb" deviceset="MA03-2" device=""/>
 <part name="P+4" library="supply1" deviceset="VCC" device=""/>
