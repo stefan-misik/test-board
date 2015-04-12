@@ -8,10 +8,17 @@
 #ifndef LCD_H_
 #define LCD_H_
 
+#include <stddef.h>
+
 /**
  * \brief Determine whatever to use or not the local display buffer
  */
 #define LCD_USE_BUFFER 1
+
+/**
+ * \brief Will cause whole lcd buffer to be drawn on lcd
+ */
+#define lcd_draw_buffer()	lcd_invalidate_rect(0, 0, 83, 47)
 
 /**
  * \brief LCD's extended configuration options
@@ -22,6 +29,7 @@ typedef enum
 	LCD_BS,			/** < Bias system */
 	LCD_VOP			/** < Vop - contrast */
 } lcd_ex_e;
+
 
 /**
  * \brief Output stream to LCD
@@ -77,9 +85,14 @@ extern unsigned char lcd_buffer[504];
 
 /**
  * \brief Causes graphic buffer to by written onto the LCD
+ *
+ * \param[in] left,top,right,bottom	Coordinates of rectangle to be redrawn
  */
-void lcd_draw_buffer(
-	void
+void lcd_invalidate_rect(
+	unsigned char left,
+	unsigned char top,
+	unsigned char right,
+	unsigned char bottom
 );
 
 /**

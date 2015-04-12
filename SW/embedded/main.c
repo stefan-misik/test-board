@@ -61,7 +61,8 @@ int main(void)
 	outputs_set(OUTPUT_BL, 255);
 	
 	_delay_ms(1000);
-	lcd_draw_buffer();
+	lcd_draw_buffer();	
+	//lcd_invalidate_rect(4, 0, 48, 5);
 	
 	for(i = 255; i > 0; i--)
 	{
@@ -103,7 +104,7 @@ int main(void)
 			t_min = temp;
 		}
 		
-		if(10 == i)
+		if(1 == i)
 		{		
 			t_max = 140 - t_max;
 			t_min = 140 - t_min;
@@ -131,7 +132,8 @@ int main(void)
 		
 		/*outputs_set(OUTPUT_LED, ((char)(temp)) << 4);*/
 		
-		lcd_draw_buffer();	
+		lcd_draw_buffer();
+		//lcd_invalidate_rect(0, 0, 83, 47);
 		i ++;
 		_delay_ms(1000);
 	}	

@@ -211,7 +211,7 @@ void lcd_init(
 	/* Reset serial interface */
 	lcd_set_sce(1);
 	
-	lcd_set_ex(LCD_VOP, 55);	/* Set LCD Vop (Contrast) */	
+	lcd_set_ex(LCD_VOP, 65);	/* Set LCD Vop (Contrast) */	
 	lcd_set_ex(LCD_TC, 0);		/* Set temp coefficient */	
 	lcd_set_ex(LCD_BS, 4);		/* LCD bias mode 1:48 */	
 	
@@ -283,27 +283,34 @@ void lcd_put(
 {	
 	unsigned char tmp;
 	
+	#if LCD_USE_BUFFER != 1
 	/* Enable serial interface */
 	lcd_set_sce(0);
 	/* Set data mode */
 	lcd_set_d();
+	#endif
+	
 	while(length > 0 && lcd_pos < 504)
 	{
 		tmp = *(data++);
 		
 		/* Store data in LCD buffer, if enabled */
 		#if LCD_USE_BUFFER == 1
-		lcd_buffer[lcd_pos] = tmp;		
+		lcd_buffer[lcd_pos] = tmp;
+		#else
+		/* Write on display */
+		lcd_transmit(tmp);				
 		#endif			
 		
-		/* Write on display */
-		lcd_transmit(tmp);
+		
 		length --;
 		lcd_pos ++;
 	}
 	
+	#if LCD_USE_BUFFER != 1
 	/* Release serial interface */
 	lcd_set_sce(1);
+	#endif
 }
 
 /******************************************************************************/
@@ -314,12 +321,12 @@ void lcd_set_pos(
 {
 	if(col > 83)
 	{
-		col = 83;
+		col %= 84;
 	}
 		
 	if(row > 5)
 	{
-		row = 5;
+		row %= 6;
 	}	
 	
 	/* Set position on LCD */
@@ -332,12 +339,34 @@ void lcd_set_pos(
 #if LCD_USE_BUFFER == 1
 
 /******************************************************************************/
-void lcd_draw_buffer(
-	void
+void lcd_invalidate_rect(
+	unsigned char left,
+	unsigned char top,
+	unsigned char right,
+	unsigned char bottom
 )
 {
-	lcd_set_pos(0, 0);
-	lcd_put(lcd_buffer, 504);
+	char row, col;
+	unsigned int new_pos;
+	
+	for(row = top; row <= bottom; row++)
+	{
+		/* Set new position */
+		lcd_set_pos(left, row);
+		
+		/* Enable serial interface */
+		lcd_set_sce(0);
+		/* Set data mode */
+		lcd_set_d();
+		
+		for(col = left; col <= right; col++)
+		{
+			lcd_transmit(lcd_buffer[lcd_pos++]);
+		}
+		
+		/* Release serial interface */
+		lcd_set_sce(1);
+	}		
 }
 
 /******************************************************************************/
