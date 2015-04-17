@@ -87,7 +87,9 @@ int main(void)
 	
 	while(1)
 	{
+		temperature_update();		
 		temp = temperature_get();
+		
 		lcd_set_pos(0, 1);
 		lcd_bold(0);
 		

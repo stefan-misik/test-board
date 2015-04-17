@@ -30,6 +30,13 @@ int temperature_get(
 	void
 );
 
-
+/**
+ * \brief Starts the update process of temperature reading
+ *
+ * \return 0 on success, error code otherwise
+ */
+char temperature_update(
+	void
+);
 
 #endif /* TEMPERATURE_H_ */
