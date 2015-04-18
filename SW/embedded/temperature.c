@@ -11,7 +11,6 @@
 #include <avr/interrupt.h>
 
 #include "temperature.h"
-#include "outputs.h"
 
 /**
  * \brief Measurement state variable type
@@ -149,6 +148,9 @@ ISR(TWI_vect)
 			if(TW_MR_SLA_ACK != status)
 			{				
 				temperature_stat = TEMPERATURE_IDLE;
+				
+				/* Transmit stop */
+				TWCR |= (1 << TWSTO);
 			}
 			else
 			{
@@ -164,6 +166,9 @@ ISR(TWI_vect)
 			if(TW_MR_DATA_ACK != status)
 			{
 				temperature_stat = TEMPERATURE_IDLE;
+				
+				/* Transmit stop */
+				TWCR |= (1 << TWSTO);
 			}
 			else
 			{
@@ -191,6 +196,12 @@ ISR(TWI_vect)
 				/* Write new reading */
 				temperature = tmp_temp;				
 			}
+			
+			/* Transmit stop */
+			TWCR |= (1 << TWSTO);
+		break;
+		default:
+			temperature_stat = TEMPERATURE_IDLE;
 			
 			/* Transmit stop */
 			TWCR |= (1 << TWSTO);
