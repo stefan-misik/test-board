@@ -52,6 +52,8 @@ int main(void)
 	lcd_init();
 	temperature_init();
 	
+	temperature_update();
+	
 	stdout = &lcd_sout;
 	
 	lcd_set_pos(0, 0);
