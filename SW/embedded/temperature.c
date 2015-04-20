@@ -12,17 +12,6 @@
 
 #include "temperature.h"
 
-/**
- * \brief Measurement state variable type
- */
-typedef enum
-{
-	TEMPERATURE_IDLE = 0,	/** < Temperature measurement idle */
-	TEMPERATURE_START,		/** < Start condition transmitted */
-	TEMPERATURE_ADDRESS,	/** < Address transmitted */
-	TEMPERATURE_READ_1,		/** < First byte received */
-	TEMPERATURE_READ_2		/** < Second byte received */
-} temperature_stat_e;
 
 /**
  * \brief Address of the LM75 chip
@@ -37,7 +26,14 @@ static int temperature = 0;
 /**
  * \brief Temperature measurement status
  */
-static temperature_stat_e temperature_stat = TEMPERATURE_IDLE;
+static enum
+{
+	TEMPERATURE_IDLE = 0,	/** < Temperature measurement idle */
+	TEMPERATURE_START,		/** < Start condition transmitted */
+	TEMPERATURE_ADDRESS,	/** < Address transmitted */
+	TEMPERATURE_READ_1,		/** < First byte received */
+	TEMPERATURE_READ_2		/** < Second byte received */
+} temperature_stat = TEMPERATURE_IDLE;
 
 
 /******************************************************************************/
