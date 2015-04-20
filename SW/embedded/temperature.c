@@ -86,10 +86,10 @@ char temperature_update(
 	void
 )
 {
-	char ret = temperature_stat;
+	char busy = temperature_busy();
 	
 	/* Check if measurement is not in process */
-	if(TEMPERATURE_IDLE == temperature_stat)
+	if(0 == busy)
 	{
 		/* Wait for stop condition to be executed */
 		while ((TWCR & (1 << TWSTO)))
@@ -101,13 +101,17 @@ char temperature_update(
 		
 		/* Transmit start */
 		TWCR |= ((1 << TWINT) | (1 << TWSTA));		
-	}
-	else
-	{
-		ret = 1;
-	}
+	}	
 	
-	return ret;
+	return busy;
+}
+
+/******************************************************************************/
+char temperature_busy(
+	void
+)
+{
+	return TEMPERATURE_IDLE == temperature_stat ? 0 : 1;
 }
 
 /******************************************************************************/

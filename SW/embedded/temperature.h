@@ -33,9 +33,18 @@ int temperature_get(
 /**
  * \brief Starts the update process of temperature reading
  *
- * \return 0 on success, error code otherwise
+ * \return 0 on success
  */
 char temperature_update(
+	void
+);
+
+/**
+ * \brief Get the status of temperature measurement
+ *
+ * \return 0 when not busy
+ */
+char temperature_busy(
 	void
 );
 
