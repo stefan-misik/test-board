@@ -122,6 +122,7 @@ ISR(TWI_vect)
 	
 	switch(temperature_stat)
 	{
+		/* Start condition should have been generated */
 		case TEMPERATURE_START:
 			if(TW_START != status && TW_REP_START != status)
 			{
@@ -140,6 +141,7 @@ ISR(TWI_vect)
 			}			
 		break;
 		
+		/* Slave address + R should have been sent */
 		case TEMPERATURE_ADDRESS:
 			if(TW_MR_SLA_ACK != status)
 			{				
@@ -158,6 +160,7 @@ ISR(TWI_vect)
 			}
 		break;
 		
+		/* First byte should have been received */
 		case TEMPERATURE_READ_1:
 			if(TW_MR_DATA_ACK != status)
 			{
@@ -179,6 +182,7 @@ ISR(TWI_vect)
 			}
 		break;
 		
+		/* Second byte should have been received */
 		case TEMPERATURE_READ_2:
 			temperature_stat = TEMPERATURE_IDLE;
 			
@@ -196,6 +200,8 @@ ISR(TWI_vect)
 			/* Transmit stop */
 			TWCR |= (1 << TWSTO);
 		break;
+		
+		/* Default operation = unknown state */
 		default:
 			temperature_stat = TEMPERATURE_IDLE;
 			
