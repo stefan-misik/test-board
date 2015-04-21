@@ -11,23 +11,23 @@
 /**
  * \brief Error code
  */
-#define TEMPERATURE_ERR	0x8000
+#define TEMPERATURE_ERR    0x8000
 
 /**
  * \brief Initialization of temperature module
  */
 void temperature_init(
-	void
+    void
 );
 
 /**
  * \brief Read current temperature value
  *
- * \return	Temperature value in dg. C * 4, 
-			TEMPERATURE_ERR on communication error
+ * \return    Temperature value in dg. C * 4, 
+            TEMPERATURE_ERR on communication error
  */
 int temperature_get(
-	void
+    void
 );
 
 /**
@@ -36,7 +36,7 @@ int temperature_get(
  * \return 0 on success
  */
 char temperature_update(
-	void
+    void
 );
 
 /**
@@ -45,7 +45,7 @@ char temperature_update(
  * \return 0 when not busy
  */
 char temperature_busy(
-	void
+    void
 );
 
 #endif /* TEMPERATURE_H_ */
