@@ -8,12 +8,22 @@
 #include "common.h"
 #include "timer.h"
 #include <avr/interrupt.h>
+#include <stddef.h>
 
 /**
  * \brief Timer overflow period in milliseconds
  */
 #define TIMER_PERIOD 64
 
+/**
+ * \brief Rounding to whole periods
+ */
+#define TIMER_ROUND_TO_PERIODS(val) ((val) & (~(TIMER_PERIOD-1)))
+
+/**
+ * \brief Pointer to first alarm structure
+ */
+static volatile timer_alarm_t * first_alarm = NULL;
 
 /**
  * \brief Current time in milliseconds 
@@ -110,5 +120,35 @@ void timer_set_long(
 /******************************************************************************/
 ISR(TIMER1_CAPT_vect)
 {
+    static timer_callback callback;
+    static timer_alarm_t * alarm, * parent;
+    
+    /* Increment timer */
     timer_now += TIMER_PERIOD;
+    
+    
+    parent = (timer_alarm_t *)&first_alarm;
+    alarm = first_alarm;
+    
+    while (NULL != alarm)
+    {
+        /* If alarm should be alarmed */
+        if(timer_now == alarm->alarm_time)
+        {
+            /* Get the callback */
+            callback = alarm->alarm_callback;
+            /* Remove alarm from the queue */
+            parent->next_alarm = alarm->next_alarm;
+            /* Call the callback */
+            callback();
+        }
+        else
+        {
+            break;
+        }
+        
+        /* Move to next alarm */
+        parent = alarm;
+        alarm = alarm->next_alarm;        
+    }    
 }
