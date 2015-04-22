@@ -21,21 +21,6 @@ typedef uint64_t long_time_t;
  */
 typedef uint32_t short_time_t;
 
-/**
- * \brief Alarm callback function
- */
-typedef void (*timer_callback)(void);
-
-/**
- * \brief Structure holding information about alarms
- */
-typedef struct timer_alarm
-{
-    struct timer_alarm * next_alarm;     /** < Nex alarm in linked list */
-    timer_callback       alarm_callback; /** < Callback function pointer */
-    long_time_t          alarm_time;     /** < Alarm time */    
-} timer_alarm_t;
-
 
 /**
  * \brief Initialize timer module 

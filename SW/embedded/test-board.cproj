@@ -118,6 +118,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="alarm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="alarm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="common.h">
       <SubType>compile</SubType>
     </Compile>
