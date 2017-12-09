@@ -51,6 +51,7 @@ int main(void)
     outputs_init();
     lcd_init();
     temperature_init();
+    keypad_init();
     
     temperature_update();
     
@@ -60,19 +61,14 @@ int main(void)
     lcd_bold(1);
     printf(" Temp Meter");
     
-    outputs_set(OUTPUT_BL, 255);
-    
-    _delay_ms(1000);
     lcd_draw_buffer();    
-    //lcd_invalidate_rect(4, 0, 48, 5);
     
-    for(i = 255; i > 0; i--)
+    for(i = 0; i < 256; i++)
     {
+        outputs_set(OUTPUT_LED, 255-i);
         outputs_set(OUTPUT_BL, i);
         _delay_ms(5);
     }
-    
-    outputs_set(OUTPUT_BL, 128);
     
     i = 0;
     
@@ -131,13 +127,9 @@ int main(void)
             i = 0;    
             t_max = 0x8000;
             t_min = 0x7FFF;        
-        }    
-        
-        
-        /*outputs_set(OUTPUT_LED, ((char)(temp)) << 4);*/
+        }
         
         lcd_draw_buffer();
-        //lcd_invalidate_rect(0, 0, 83, 47);
         i ++;
         _delay_ms(1000);
     }    

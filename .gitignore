@@ -41,3 +41,6 @@
 # Atmel studio
 *.lss
 *.atsuo
+
+# Netbeans project file
+nbproject/

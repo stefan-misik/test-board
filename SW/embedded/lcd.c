@@ -48,8 +48,6 @@ unsigned char lcd_buffer[504];
 
 #endif
 
-FILE lcd_sout = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
-
 /**
  * \brief ASCII characters
  */
@@ -158,6 +156,21 @@ static const unsigned char lcd_ascii[][5] PROGMEM =
  */
 static char lcd_fond_bold = 0;
 
+/******************************************************************************/
+static int lcd_putchar_fdev(
+    char c,
+    FILE * fd
+)
+{
+    if(stdout == fd)
+    {
+        return lcd_putchar(c);
+    }
+    return 0;
+}
+
+
+FILE lcd_sout = FDEV_SETUP_STREAM(lcd_putchar_fdev, NULL, _FDEV_SETUP_WRITE);
 
 /******************************************************************************/
 static void lcd_transmit(
@@ -301,7 +314,6 @@ void lcd_put(
         /* Write on display */
         lcd_transmit(tmp);                
         #endif            
-        
         
         length --;
         lcd_pos ++;

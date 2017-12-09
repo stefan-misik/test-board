@@ -8,7 +8,7 @@ SIZE   = avr-size
 
 MCU  ?= atmega328p
 PROJ = test-board
-SRC  = alarm.c timer.c lcd.c outputs.c temperature.c main.c
+SRC  = alarm.c timer.c lcd.c outputs.c temperature.c main.c keypad.c
 
 
 CFLAGS		= -c -ggdb -Os -mmcu=$(MCU)
