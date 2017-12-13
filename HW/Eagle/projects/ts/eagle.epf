@@ -1,5 +1,5 @@
 [Eagle]
-Version="08 04 03"
+Version="08 05 00"
 Platform="Windows"
 Globals="Globals"
 Desktop="Desktop"
@@ -14,8 +14,6 @@ UsedLibrary="C:/cygwin/home/xmisik00/test-board/HW/Eagle/lbr/v-reg.lbr"
 
 [Win_1]
 Type="Control Panel"
-Loc="225 164 864 803"
-State=2
 Number=0
 
 [Desktop]
