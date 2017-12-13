@@ -360,6 +360,10 @@ void lcd_invalidate_rect(
 {
     char row, col;
     unsigned int new_pos;
+
+	/* Translate points to rows */
+	top >>= 3;
+	bottom >>=3;
     
     for(row = top; row <= bottom; row++)
     {

@@ -17,6 +17,7 @@
 #include "outputs.h"
 #include "temperature.h"
 #include "timer.h"
+#include "keypad.h"
 
 
 char fix_to_decimal(
