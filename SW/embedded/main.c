@@ -56,9 +56,9 @@ int main(void)
     
     temperature_update();
     
-    stdout = &lcd_sout;
     
-    lcd_set_pos(0, 0);
+    
+    //lcd_set_pos(0, 0);
     lcd_bold(1);
     printf(" Temp Meter");
     
@@ -92,7 +92,7 @@ int main(void)
         lcd_set_pos(0, 1);
         lcd_bold(0);
         
-        printf("Temp: %i.%i'C ",  temp >> 2, fix_to_decimal((temp & 0x0003) << 6));
+        printf("Temp: %i.%i" "\xf8" "C ",  temp >> 2, fix_to_decimal((temp & 0x0003) << 6));
         
                 
         if(temp > t_max)
@@ -132,6 +132,6 @@ int main(void)
         
         lcd_draw_buffer();
         i ++;
-        _delay_ms(1000);
+        _delay_ms(500);
     }    
 }

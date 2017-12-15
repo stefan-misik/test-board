@@ -8,7 +8,7 @@
 #ifndef LCD_H_
 #define LCD_H_
 
-#include <stddef.h>
+#include <stdio.h>
 
 /**
  * \brief Determine whatever to use or not the local display buffer
@@ -31,15 +31,19 @@ typedef enum
 } lcd_ex_e;
 
 
-/**
- * \brief Output stream to LCD
- */
-extern FILE lcd_sout;
 
 /**
  * \brief Initialization of LCD
  */
 void lcd_init(
+    void
+);
+
+/**
+ * @brief Perform LCD test by turning all segments on for one second
+ * 
+ */
+void lcd_test(
     void
 );
 
@@ -132,7 +136,7 @@ char lcd_get_point(
  * \param[in] c    Character to be drawn
  */
 int lcd_putchar(
-    int c
+    unsigned char c
 );
 
 /**
