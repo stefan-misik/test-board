@@ -47,7 +47,7 @@ unsigned char lcd_buffer[504];
 #endif
 
 /**
- * \brief ASCII characters
+ * \brief Font
  */
 static const unsigned char lcd_ascii[][5] PROGMEM =
 {

@@ -6,7 +6,7 @@
  */
 
 #include "outputs.h"
-#include <avr/io.h>
+#include "common.h"
 
 
 

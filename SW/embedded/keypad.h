@@ -17,6 +17,16 @@ void keypad_init(
     void
 );
 
+/**
+ * @brief Get pressed key
+ * 
+ * @return Character representing pressed key, null character if no key is
+ *         pressed
+ */
+char keypad_get(
+    void
+);
+
 
 #endif /* KEYPAD_H */
 
