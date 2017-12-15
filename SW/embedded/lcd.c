@@ -349,8 +349,9 @@ void lcd_init(
     DDRB |= ( (1 << DDB3) | (1 << DDB5) );
     /* DDRB &= ~( (1 << DDB4) ); */
     
-    /* Enable SPI, Master, set clock rate fck/4 */
-    SPCR = ( (1 << SPE) | (1 << MSTR) | (0 << SPR1) | (0 << SPR0) );
+    /* Enable SPI, Master, set clock rate fck/8 (double rate) */
+    SPCR = ( (1 << SPE) | (1 << MSTR) | (0 << SPR1) | (1 << SPR0) );
+	SPSR |= (1 << SPI2X);
     
     
     /* Reset serial interface */
