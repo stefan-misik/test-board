@@ -355,10 +355,10 @@ LED
 Wire Wire Line
 	3650 4550 3500 4550
 $Comp
-L Switch:SW_Push RESET1
+L Switch:SW_Push SW1
 U 1 1 5C159D8B
 P 2950 4950
-F 0 "RESET1" H 2950 5143 50  0000 C CNN
+F 0 "SW1" H 2950 5143 50  0000 C CNN
 F 1 "RESET" H 2950 5144 50  0001 C CNN
 F 2 "Button_Switch_THT:SW_PUSH_6mm" H 2950 5150 50  0001 C CNN
 F 3 "" H 2950 5150 50  0001 C CNN
@@ -459,7 +459,7 @@ F 1 "4050" H 9870 5045 50  0000 R CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 10100 5000 50  0001 C CNN
 F 3 "http://www.intersil.com/content/dam/intersil/documents/cd40/cd4050bms.pdf" H 10100 5000 50  0001 C CNN
 	7    10100 5000
-	-1   0    0    1   
+	1    0    0    -1  
 $EndComp
 Text GLabel 8250 4150 0    50   Input ~ 0
 LCD_SCE_5V
@@ -1031,7 +1031,7 @@ U 1 1 5C230B5F
 P 10550 1550
 F 0 "D1" V 10504 1629 50  0000 L CNN
 F 1 "1N5820" V 10595 1629 50  0000 L CNN
-F 2 "Diode_THT:D_5W_P10.16mm_Horizontal" H 10550 1375 50  0001 C CNN
+F 2 "Diode_THT:D_DO-201AD_P15.24mm_Horizontal" H 10550 1375 50  0001 C CNN
 F 3 "http://www.vishay.com/docs/88526/1n5820.pdf" H 10550 1550 50  0001 C CNN
 	1    10550 1550
 	0    1    1    0   
@@ -1053,7 +1053,7 @@ U 1 1 5C23A591
 P 10200 1550
 F 0 "L1" H 10253 1596 50  0000 L CNN
 F 1 "100uH" H 10253 1505 50  0000 L CNN
-F 2 "Inductor_THT:L_Toroid_Vertical_L13.0mm_W6.5mm_P5.60mm" H 10200 1550 50  0001 C CNN
+F 2 "Inductor_THT:L_Toroid_Vertical_L16.4mm_W7.6mm_P6.60mm_Vishay_TJ3" H 10200 1550 50  0001 C CNN
 F 3 "~" H 10200 1550 50  0001 C CNN
 	1    10200 1550
 	1    0    0    -1  
