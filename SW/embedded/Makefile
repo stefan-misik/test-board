@@ -31,7 +31,7 @@ OBJ = $(addsuffix .o, $(basename $(SRC)))
 
 .PHONY: all clean stats prog
 
-all: $(PROJ).elf $(PROJ).hex $(PROJ).lss $(SRC) stats
+all: $(PROJ).elf $(PROJ).hex $(PROJ).lss $(SRC)
 
 stats: $(PROJ).elf
 	$(SIZE) $(SIZEFLAGS) $<

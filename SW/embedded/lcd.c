@@ -24,7 +24,7 @@
 /**
  * \brief Set lcd SCE
  */
-#define lcd_set_sce(val)    (val) ? (PORTD |= (1 << PORTD4)) : (PORTD &= ~(1 << PORTD4))
+#define lcd_set_sce(val)    (val) ? (PORTB |= (1 << PORTB2)) : (PORTB &= ~(1 << PORTB2))
 
 /**
  * \brief Macro to calculate display position from coordinates

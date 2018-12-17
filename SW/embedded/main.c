@@ -17,7 +17,7 @@
 #include "outputs.h"
 #include "temperature.h"
 #include "timer.h"
-#include "keypad.h"
+//#include "keypad.h"
 
 
 char fix_to_decimal(
@@ -52,7 +52,7 @@ int main(void)
     outputs_init();
     lcd_init();
     temperature_init();
-    keypad_init();
+    //keypad_init();
     
     temperature_update();
     
