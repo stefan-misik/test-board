@@ -17,7 +17,7 @@
 #include "outputs.h"
 #include "temperature.h"
 #include "timer.h"
-//#include "keypad.h"
+#include "keypad.h"
 
 
 char fix_to_decimal(
@@ -44,6 +44,7 @@ int main(void)
     int temp, t_max, t_min;
     unsigned int i;
     unsigned char j;
+	char key;
     
     t_max = 0x8000;
     t_min = 0x7FFF;
@@ -52,9 +53,23 @@ int main(void)
     outputs_init();
     lcd_init();
     temperature_init();
-    //keypad_init();
+    keypad_init();
     
     temperature_update();
+
+    outputs_set(OUTPUT_BL, 255);
+	while (1)
+	{
+		key = keypad_get();
+
+		if ('\0' != key)
+		{
+    		lcd_set_pos(0, 0);
+			printf("%c", key);
+		}
+    	lcd_draw_buffer();    
+        _delay_ms(100);
+	}
     
     
     

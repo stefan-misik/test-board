@@ -48,12 +48,12 @@ void keypad_init(
     
     /* Set all keypad pins as inputs to enable pull-ups */
     DDRB &= ~((1 << DDB1));
-    DDRD &= ~((1 << DDD7));
+    DDRD &= ~((1 << DDD3) | (1 << DDD7));
     DDRC &= ~((1 << DDC0) | (1 << DDC1) | (1 << DDC2) | (1 << DDC3));
     
     /* Turn on the internal pull-ups */
-    /*PORTB |= ((1 << PORTB1) | (1 << PORTB2));*/
-    PORTD |= ((1 << PORTD7));
+    PORTB |= ((1 << PORTB1));
+    PORTD |= ((1 << PORTD3) | (1 << PORTD7));
     PORTC |= ((1 << PORTC0) | (1 << PORTC1) | (1 << PORTC2) | (1 << PORTC3));
 }
 
@@ -63,21 +63,40 @@ char keypad_get(
 )
 {
     char key = '\0';
+
+    /* Select first column */
+    PORTD &= ~(1 << PORTD3);
+    DDRD |= (1 << DDD3);
+    /* Read key */
+    key = keypad_get_column(0);
+    /* De-select first column */
+    DDRD &= ~(1 << DDD3);
+    PORTD |= (1 << PORTD3);
+
+	if ('\0' != key)
+	{
+		return key;
+	}
     
     /* Select second column */
     PORTB &= ~(1 << PORTB1);
     DDRB |= (1 << DDB1);
     /* Read key */
-    key = keypad_get_column(1);
+    key = keypad_get_column(2);
     /* De-select second column */
     DDRB &= ~(1 << DDB1);
     PORTB |= (1 << PORTB1);
+
+	if ('\0' != key)
+	{
+		return key;
+	}
     
     /* Select first column */
     PORTD &= ~(1 << PORTD7);
     DDRD |= (1 << DDD7);
     /* Read key */
-    key = keypad_get_column(0);
+    key = keypad_get_column(1);
     /* De-select first column */
     DDRD &= ~(1 << DDD7);
     PORTD |= (1 << PORTD7);
