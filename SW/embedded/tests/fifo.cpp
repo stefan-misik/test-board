@@ -41,8 +41,6 @@ TEST(Fifo, insertSingleByte)
     // Prepare
     // Test, Check
     UNSIGNED_LONGS_EQUAL(1, fifo_write(&m_fifo_object, (const void *)"a", 1));
-    UNSIGNED_LONGS_EQUAL(4, fifo_free(&m_fifo_object));
-    UNSIGNED_LONGS_EQUAL(1, fifo_enqueued(&m_fifo_object));
     MEMCMP_EQUAL("a", m_buffer_start, 1);
 }
 
@@ -51,8 +49,6 @@ TEST(Fifo, insertMultipleBytes)
     // Prepare
     // Test, Check
     UNSIGNED_LONGS_EQUAL(3, fifo_write(&m_fifo_object, (const void *)"bcd", 3));
-    UNSIGNED_LONGS_EQUAL(2, fifo_free(&m_fifo_object));
-    UNSIGNED_LONGS_EQUAL(3, fifo_enqueued(&m_fifo_object));
     MEMCMP_EQUAL("bcd", m_buffer_start, 3);
 }
 
@@ -64,8 +60,6 @@ TEST(Fifo, readSingleByte)
     // Test
     UNSIGNED_LONGS_EQUAL(1, fifo_read(&m_fifo_object, buffer, 1));
     // Check
-    UNSIGNED_LONGS_EQUAL(4, fifo_free(&m_fifo_object));
-    UNSIGNED_LONGS_EQUAL(1, fifo_enqueued(&m_fifo_object));
     MEMCMP_EQUAL("x", buffer, 1);
 }
 
@@ -80,7 +74,6 @@ TEST(Fifo, readMultipleBytes)
     UNSIGNED_LONGS_EQUAL(4, fifo_free(&m_fifo_object));
     UNSIGNED_LONGS_EQUAL(1, fifo_enqueued(&m_fifo_object));
     MEMCMP_EQUAL("xqr", buffer, 3);
-
 }
 
 TEST(Fifo, multipleReadsAndWrites)
@@ -94,11 +87,19 @@ TEST(Fifo, multipleReadsAndWrites)
     UNSIGNED_LONGS_EQUAL(2, fifo_write(&m_fifo_object, "no", 2));
     UNSIGNED_LONGS_EQUAL(2, fifo_read(&m_fifo_object, buffer_2, 2));
     // Check
-    UNSIGNED_LONGS_EQUAL(4, fifo_free(&m_fifo_object));
-    UNSIGNED_LONGS_EQUAL(1, fifo_enqueued(&m_fifo_object));
     MEMCMP_EQUAL("y", buffer_1, 1);
     MEMCMP_EQUAL("mn", buffer_2, 2);
+}
 
+TEST(Fifo, writeAroundEdge)
+{
+    char buffer[8];
+    // Prepare
+    fifo_write(&m_fifo_object, "qwer", 4);
+    fifo_read(&m_fifo_object, buffer, 4);
+    // Test
+    UNSIGNED_LONGLONGS_EQUAL(4, fifo_write(&m_fifo_object, "abcd", 4));
+    MEMCMP_EQUAL("cderab\0", m_buffer_start, 7);
 }
 
 /* REQUIREMENTS:

@@ -30,6 +30,10 @@ size_t fifo_write(fifo_t * fifo, const void * buffer, size_t length)
     for (pos = 0; pos < length; pos ++)
     {
         BUF(fifo->buffer)[fifo->head ++] = BUF(buffer)[pos];
+        if (fifo->head == fifo->length)
+        {
+            fifo->head = 0;
+        }
     }
     return pos;
 }
