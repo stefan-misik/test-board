@@ -29,7 +29,7 @@ SIZEFLAGS	= -C --mcu=$(MCU)
 #############################################
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 
-.PHONY: all clean stats prog
+.PHONY: all clean stats prog fuses
 
 all: $(PROJ).elf $(PROJ).hex $(PROJ).lss $(SRC)
 
@@ -38,6 +38,10 @@ stats: $(PROJ).elf
 
 prog: $(PROJ).hex
 	$(AD) -c $(PROG) -p $(PART) -P $(PORT) -U flash:w:$<:i
+
+fuses:
+	$(AD) -c $(PROG) -p $(PART) -P $(PORT) -B 10 -D             \
+	    -U lfuse:w:0xFF:m -U hfuse:w:0xDE:m -U efuse:w:0xFF:m
 
 $(PROJ).elf: $(OBJ)
 	$(CC) $(LDFLAGS) $(OBJ) -o $@
