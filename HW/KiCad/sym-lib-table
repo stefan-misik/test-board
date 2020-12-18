@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name ht7533)(type Legacy)(uri ${KIPRJMOD}/ht7533.lib)(options "")(descr ""))
+  (lib (name ts-rescue)(type Legacy)(uri ${KIPRJMOD}/ts-rescue.lib)(options "")(descr ""))
 )
